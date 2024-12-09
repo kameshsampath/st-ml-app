@@ -2,4 +2,4 @@ import streamlit as st
 
 st.title("🤖 Machine Learning App")
 
-st.write("Welcome to world of Machine Learning with Streamlit.")
+st.write("Welcome to Best of Build APJ 2024.")
