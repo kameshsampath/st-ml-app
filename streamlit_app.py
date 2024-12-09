@@ -27,3 +27,69 @@ with st.expander("Data Visualization"):
         y="body_mass_g",
         color="species",
     )
+
+# Interactivity
+# Columns:
+# 'species', 'island', 'bill_length_mm', 'bill_depth_mm',
+# 'flipper_length_mm', 'body_mass_g', 'sex'
+with st.sidebar:
+    st.header("Input Features")
+    # Islands
+    islands = df.island.unique().astype(str)
+    island = st.selectbox(
+        "Island",
+        islands,
+    )
+    # Bill Length
+    min, max, mean = (
+        df.bill_length_mm.min(),
+        df.bill_length_mm.max(),
+        df.bill_length_mm.mean().round(2),
+    )
+    bill_length_mm = st.slider(
+        "Bill Length(mm)",
+        min_value=min,
+        max_value=max,
+        value=mean,
+    )
+    # Bill Depth
+    min, max, mean = (
+        df.bill_depth_mm.min(),
+        df.bill_depth_mm.max(),
+        df.bill_depth_mm.mean().round(2),
+    )
+    bill_depth_mm = st.slider(
+        "Bill Depth(mm)",
+        min_value=min,
+        max_value=max,
+        value=mean,
+    )
+    # Filpper Length
+    min, max, mean = (
+        df.flipper_length_mm.min().astype(float),
+        df.flipper_length_mm.max().astype(float),
+        df.flipper_length_mm.mean().round(2),
+    )
+    flipper_length_mm = st.slider(
+        "Flipper Length(mm)",
+        min_value=min,
+        max_value=max,
+        value=mean,
+    )
+    # Body Mass
+    min, max, mean = (
+        df.body_mass_g.min().astype(float),
+        df.body_mass_g.max().astype(float),
+        df.body_mass_g.mean().round(2),
+    )
+    body_mass_g = st.slider(
+        "Body Mass(g)",
+        min_value=min,
+        max_value=max,
+        value=mean,
+    )
+    # Gender
+    gender = st.radio(
+        "Gender",
+        ("Male", "Female"),
+    )
