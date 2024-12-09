@@ -11,3 +11,11 @@ with st.expander("Data"):
     # read the csv file
     df = pd.read_csv("data/penguins_cleaned.csv")
     df
+    # define and display
+    st.write("**X**")
+    X = df.drop("species", axis=1)
+    X
+
+    st.write("**y**")
+    y = df.species
+    y
