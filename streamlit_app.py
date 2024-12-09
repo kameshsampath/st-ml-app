@@ -6,7 +6,7 @@ st.title("🤖 Machine Learning App")
 
 st.write("Welcome to world of Machine Learning with Streamlit.")
 
-with st.expander("Data", expanded=True):
+with st.expander("Data"):
     st.write("**Raw Data**")
     # read the csv file
     df = pd.read_csv("data/penguins_cleaned.csv")
