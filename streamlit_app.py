@@ -1,6 +1,7 @@
 # import pandas to read the our data file
 import pandas as pd
 import streamlit as st
+from sklearn.ensemble import RandomForestClassifier
 
 st.title("🤖 Machine Learning App")
 
@@ -139,3 +140,57 @@ with st.expander("Data Preparation"):
     input_row
     st.write("**Encoded y**")
     y
+
+
+with st.container():
+    st.subheader("**Prediction Probability**")
+    ## Model Training
+    rf_classifier = RandomForestClassifier()
+    # Fit the model
+    rf_classifier.fit(X, y)
+    # predict using the model
+    prediction = rf_classifier.predict(input_row)
+    prediction_prob = rf_classifier.predict_proba(input_row)
+
+    # reverse the target_mapper
+    p_cols = dict((v, k) for k, v in target_mapper.items())
+    df_prediction_prob = pd.DataFrame(prediction_prob)
+    # set the column names
+    df_prediction_prob.columns = p_cols.values()
+    # set the Penguin name
+    df_prediction_prob.rename(columns=p_cols)
+
+    st.dataframe(
+        df_prediction_prob,
+        column_config={
+            "Adelie": st.column_config.ProgressColumn(
+                "Adelie",
+                help="Adelie",
+                format="%f",
+                width="medium",
+                min_value=0,
+                max_value=1,
+            ),
+            "Chinstrap": st.column_config.ProgressColumn(
+                "Chinstrap",
+                help="Chinstrap",
+                format="%f",
+                width="medium",
+                min_value=0,
+                max_value=1,
+            ),
+            "Gentoo": st.column_config.ProgressColumn(
+                "Gentoo",
+                help="Gentoo",
+                format="%f",
+                width="medium",
+                min_value=0,
+                max_value=1,
+            ),
+        },
+        hide_index=True,
+    )
+
+# display the prediction
+st.subheader("Predicted Species")
+st.success(p_cols[prediction[0]])
